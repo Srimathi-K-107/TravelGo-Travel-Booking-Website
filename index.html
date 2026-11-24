@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>TravelGo | Explore The World</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              dark: "#080D18",
+              surface: "#111C2E",
+              accent: "#F5A623",
+              muted: "#9BA8BB",
+            },
+            fontFamily: {
+              sans: ["DM Sans", "sans-serif"],
+              display: ["Playfair Display", "serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+      }
+
+      body {
+        background: #080d18;
+      }
+
+      ::selection {
+        background: #f5a623;
+        color: #080d18;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #080d18;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #34445d;
+        border-radius: 10px;
+      }
+
+      .hero-bg {
+        background:
+          linear-gradient(90deg, rgba(5, 10, 20, 0.88), rgba(5, 10, 20, 0.25)),
+          linear-gradient(0deg, #080d18 0%, transparent 35%),
+          url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800")
+            center/cover no-repeat;
+      }
+
+      .destination-card img,
+      .package-card img {
+        transition: transform 0.6s ease;
+      }
+
+      .destination-card:hover img,
+      .package-card:hover img {
+        transform: scale(1.08);
+      }
+
+      .destination-card,
+      .package-card {
+        transition: 0.4s ease;
+      }
+
+      .destination-card:hover,
+      .package-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(245, 166, 35, 0.45);
+      }
+
+      .glass {
+        background: rgba(13, 22, 38, 0.78);
+        backdrop-filter: blur(18px);
+      }
+
+      .mobile-menu {
+        transition: all 0.3s ease;
+      }
+
+      .modal {
+        transition: opacity 0.3s ease;
+      }
+
+      input,
+      select,
+      textarea {
+        color-scheme: dark;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+
+      .reveal.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    </style>
+  </head>
+
+  <body class="font-sans text-white overflow-x-hidden">
+    <!-- NAVBAR -->
+
+    <nav class="fixed top-0 left-0 w-full z-50 glass border-b border-white/10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="flex items-center justify-between h-20">
+          <a
+            href="#home"
+            class="text-3xl font-extrabold text-accent tracking-wide"
+          >
+            TravelGo<span class="text-white">.</span>
+          </a>
+
+          <div class="hidden lg:flex items-center gap-9">
+            <a
+              href="#home"
+              class="nav-link text-accent font-semibold hover:text-accent transition"
+              >Home</a
+            >
+            <a
+              href="#destinations"
+              class="nav-link text-gray-300 hover:text-accent transition"
+              >Destinations</a
+            >
+            <a
+              href="#packages"
+              class="nav-link text-gray-300 hover:text-accent transition"
+              >Packages</a
+            >
+            <a
+              href="#about"
+              class="nav-link text-gray-300 hover:text-accent transition"
+              >About</a
+            >
+            <a
+              href="#contact"
+              class="nav-link text-gray-300 hover:text-accent transition"
+              >Contact</a
+            >
+
+            <a
+              href="#booking"
+              class="bg-accent text-dark px-6 py-3 rounded-lg font-bold hover:bg-yellow-300 hover:-translate-y-1 transition duration-300"
+            >
+              Book Now
+            </a>
+          </div>
+
+          <button id="menuButton" class="lg:hidden text-white">
+            <i data-lucide="menu" class="w-7 h-7"></i>
+          </button>
+        </div>
+
+        <!-- MOBILE MENU -->
+
+        <div id="mobileMenu" class="hidden lg:hidden pb-6 space-y-5">
+          <a href="#home" class="block text-gray-300 hover:text-accent">Home</a>
+          <a href="#destinations" class="block text-gray-300 hover:text-accent"
+            >Destinations</a
+          >
+          <a href="#packages" class="block text-gray-300 hover:text-accent"
+            >Packages</a
+          >
+          <a href="#about" class="block text-gray-300 hover:text-accent"
+            >About</a
+          >
+          <a href="#contact" class="block text-gray-300 hover:text-accent"
+            >Contact</a
+          >
+
+          <a
+            href="#booking"
+            class="inline-block bg-accent text-dark px-6 py-3 rounded-lg font-bold"
+          >
+            Book Now
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+
+    <section id="home" class="hero-bg min-h-screen flex items-center relative">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 w-full pt-28 pb-20">
+        <div class="max-w-4xl">
+          <div
+            class="inline-flex items-center gap-2 border border-accent/40 bg-accent/10 rounded-full px-5 py-2 mb-7"
+          >
+            <i data-lucide="globe" class="w-4 h-4 text-accent"></i>
+
+            <span class="text-accent text-xs font-bold tracking-[3px]">
+              DISCOVER THE WORLD
+            </span>
+          </div>
+
+          <h1
+            class="font-display text-5xl sm:text-6xl lg:text-8xl leading-tight font-bold"
+          >
+            Explore The World
+
+            <span class="text-accent block"> Your Way. </span>
+          </h1>
+
+          <p
+            class="text-gray-300 text-lg md:text-xl mt-7 max-w-2xl leading-relaxed"
+          >
+            Discover breathtaking destinations, experience new cultures and
+            create unforgettable memories with TravelGo.
+          </p>
+
+          <!-- SEARCH -->
+
+          <div
+            class="glass border border-white/15 rounded-2xl p-3 mt-10 max-w-3xl shadow-2xl"
+          >
+            <div class="flex flex-col sm:flex-row gap-3">
+              <div class="flex items-center gap-3 flex-1 px-4">
+                <i data-lucide="map-pin" class="text-accent w-6 h-6"></i>
+
+                <input
+                  type="text"
+                  id="destinationSearch"
+                  placeholder="Where do you want to go?"
+                  class="w-full bg-transparent outline-none py-4 text-white placeholder-gray-400"
+                />
+              </div>
+
+              <button
+                id="searchButton"
+                class="bg-accent text-dark font-bold px-9 py-4 rounded-xl hover:bg-yellow-300 transition"
+              >
+                <span class="flex items-center justify-center gap-2">
+                  <i data-lucide="search" class="w-5 h-5"></i>
+                  Search
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-5 mt-9">
+            <a
+              href="#destinations"
+              class="bg-accent text-dark px-8 py-4 rounded-xl font-bold hover:bg-yellow-300 transition flex items-center gap-2"
+            >
+              Explore Destinations
+              <i data-lucide="arrow-up-right" class="w-5 h-5"></i>
+            </a>
+
+            <div class="flex items-center gap-3 text-gray-300">
+              <i data-lucide="play-circle" class="w-9 h-9 text-accent"></i>
+
+              <span class="text-sm">Your next adventure starts here</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTINATIONS -->
+
+    <section id="destinations" class="py-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="text-center mb-16 reveal">
+          <p class="text-accent font-bold text-xs tracking-[4px] mb-4">
+            EXPLORE PLACES
+          </p>
+
+          <h2 class="font-display text-4xl md:text-5xl font-bold">
+            Popular <span class="text-accent">Destinations</span>
+          </h2>
+
+          <p class="text-muted mt-5 max-w-xl mx-auto">
+            Discover some of the world's most beautiful destinations and find
+            your next favourite place.
+          </p>
+        </div>
+
+        <div
+          id="destinationList"
+          class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <!-- BALI -->
+
+          <div
+            class="destination-item destination-card group bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+            data-name="bali"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=700"
+                alt="Bali"
+                class="w-full h-full object-cover"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-black/60 backdrop-blur-md text-accent px-4 py-2 rounded-full text-xs font-bold"
+              >
+                INDONESIA
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-2xl font-bold">Bali</h3>
+
+                <i data-lucide="map-pin" class="text-accent"></i>
+              </div>
+
+              <p class="text-muted leading-relaxed mb-6">
+                Beautiful beaches, tropical nature and peaceful temples.
+              </p>
+
+              <a
+                href="#packages"
+                class="text-accent font-bold flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                Explore More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- PARIS -->
+
+          <div
+            class="destination-item destination-card group bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+            data-name="paris"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=700"
+                alt="Paris"
+                class="w-full h-full object-cover"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-black/60 backdrop-blur-md text-accent px-4 py-2 rounded-full text-xs font-bold"
+              >
+                FRANCE
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-2xl font-bold">Paris</h3>
+                <i data-lucide="map-pin" class="text-accent"></i>
+              </div>
+
+              <p class="text-muted leading-relaxed mb-6">
+                Experience the city of love, beautiful architecture and lights.
+              </p>
+
+              <a
+                href="#packages"
+                class="text-accent font-bold flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                Explore More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- MALDIVES -->
+
+          <div
+            class="destination-item destination-card group bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+            data-name="maldives"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=700"
+                alt="Maldives"
+                class="w-full h-full object-cover"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-black/60 backdrop-blur-md text-accent px-4 py-2 rounded-full text-xs font-bold"
+              >
+                MALDIVES
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-2xl font-bold">Maldives</h3>
+                <i data-lucide="map-pin" class="text-accent"></i>
+              </div>
+
+              <p class="text-muted leading-relaxed mb-6">
+                Relax in crystal-clear waters and beautiful luxury resorts.
+              </p>
+
+              <a
+                href="#packages"
+                class="text-accent font-bold flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                Explore More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- SWITZERLAND -->
+
+          <div
+            class="destination-item destination-card group bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+            data-name="switzerland"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=700"
+                alt="Switzerland"
+                class="w-full h-full object-cover"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-black/60 backdrop-blur-md text-accent px-4 py-2 rounded-full text-xs font-bold"
+              >
+                SWITZERLAND
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-2xl font-bold">Switzerland</h3>
+                <i data-lucide="map-pin" class="text-accent"></i>
+              </div>
+
+              <p class="text-muted leading-relaxed mb-6">
+                Explore majestic mountains and breathtaking landscapes.
+              </p>
+
+              <a
+                href="#packages"
+                class="text-accent font-bold flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                Explore More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- DUBAI -->
+
+          <div
+            class="destination-item destination-card group bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+            data-name="dubai"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=700"
+                alt="Dubai"
+                class="w-full h-full object-cover"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-black/60 backdrop-blur-md text-accent px-4 py-2 rounded-full text-xs font-bold"
+              >
+                UAE
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-2xl font-bold">Dubai</h3>
+                <i data-lucide="map-pin" class="text-accent"></i>
+              </div>
+
+              <p class="text-muted leading-relaxed mb-6">
+                Explore modern skyscrapers, shopping and desert adventures.
+              </p>
+
+              <a
+                href="#packages"
+                class="text-accent font-bold flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                Explore More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- TOKYO -->
+
+          <div
+            class="destination-item destination-card group bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+            data-name="tokyo"
+          >
+            <div class="relative h-64 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=700"
+                alt="Tokyo"
+                class="w-full h-full object-cover"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-black/60 backdrop-blur-md text-accent px-4 py-2 rounded-full text-xs font-bold"
+              >
+                JAPAN
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex justify-between items-center mb-3">
+                <h3 class="text-2xl font-bold">Tokyo</h3>
+                <i data-lucide="map-pin" class="text-accent"></i>
+              </div>
+
+              <p class="text-muted leading-relaxed mb-6">
+                Discover advanced technology and fascinating Japanese culture.
+              </p>
+
+              <a
+                href="#packages"
+                class="text-accent font-bold flex items-center gap-2 hover:gap-4 transition-all"
+              >
+                Explore More <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <p id="noDestination" class="hidden text-center text-red-400 mt-12">
+          No destinations found. Try another location.
+        </p>
+      </div>
+    </section>
+
+    <!-- PACKAGES -->
+
+    <section id="packages" class="py-24 bg-[#0D1524]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="text-center mb-16 reveal">
+          <p class="text-accent font-bold text-xs tracking-[4px] mb-4">
+            OUR PACKAGES
+          </p>
+
+          <h2 class="font-display text-4xl md:text-5xl font-bold">
+            Best Tour <span class="text-accent">Packages</span>
+          </h2>
+
+          <p class="text-muted mt-5">
+            Choose your favourite package and start your journey.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- BALI PACKAGE -->
+
+          <div
+            class="package-card bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+          >
+            <div class="h-60 overflow-hidden relative">
+              <img
+                src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=700"
+                class="w-full h-full object-cover"
+                alt="Bali Package"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-accent text-dark px-4 py-2 rounded-full text-xs font-bold"
+              >
+                POPULAR
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex items-center gap-2 text-accent text-sm mb-4">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+                5 Days / 4 Nights
+              </div>
+
+              <h3 class="text-2xl font-bold mb-3">Bali Adventure</h3>
+
+              <p class="text-muted leading-relaxed mb-7">
+                Enjoy beautiful beaches, ancient temples and amazing nature.
+              </p>
+
+              <div
+                class="flex justify-between items-center border-t border-white/10 pt-6"
+              >
+                <div>
+                  <p class="text-muted text-xs">Starting from</p>
+                  <h4 class="text-2xl font-extrabold text-accent">₹25,000</h4>
+                </div>
+
+                <button
+                  class="book-button bg-accent text-dark px-5 py-3 rounded-lg font-bold hover:bg-yellow-300 transition"
+                  data-package="Bali Adventure"
+                >
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- PARIS PACKAGE -->
+
+          <div
+            class="package-card bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+          >
+            <div class="h-60 overflow-hidden relative">
+              <img
+                src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=700"
+                class="w-full h-full object-cover"
+                alt="Paris Package"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-green-500 text-white px-4 py-2 rounded-full text-xs font-bold"
+              >
+                BEST VALUE
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex items-center gap-2 text-accent text-sm mb-4">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+                4 Days / 3 Nights
+              </div>
+
+              <h3 class="text-2xl font-bold mb-3">Paris Tour</h3>
+
+              <p class="text-muted leading-relaxed mb-7">
+                Explore famous landmarks and enjoy the beautiful city life.
+              </p>
+
+              <div
+                class="flex justify-between items-center border-t border-white/10 pt-6"
+              >
+                <div>
+                  <p class="text-muted text-xs">Starting from</p>
+                  <h4 class="text-2xl font-extrabold text-accent">₹45,000</h4>
+                </div>
+
+                <button
+                  class="book-button bg-accent text-dark px-5 py-3 rounded-lg font-bold hover:bg-yellow-300 transition"
+                  data-package="Paris Tour"
+                >
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- MALDIVES PACKAGE -->
+
+          <div
+            class="package-card bg-surface border border-white/10 rounded-2xl overflow-hidden reveal"
+          >
+            <div class="h-60 overflow-hidden relative">
+              <img
+                src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=700"
+                class="w-full h-full object-cover"
+                alt="Maldives Package"
+              />
+
+              <span
+                class="absolute top-5 left-5 bg-purple-500 text-white px-4 py-2 rounded-full text-xs font-bold"
+              >
+                SPECIAL OFFER
+              </span>
+            </div>
+
+            <div class="p-7">
+              <div class="flex items-center gap-2 text-accent text-sm mb-4">
+                <i data-lucide="clock" class="w-4 h-4"></i>
+                3 Days / 2 Nights
+              </div>
+
+              <h3 class="text-2xl font-bold mb-3">Maldives Holiday</h3>
+
+              <p class="text-muted leading-relaxed mb-7">
+                Enjoy a relaxing holiday near beautiful beaches and resorts.
+              </p>
+
+              <div
+                class="flex justify-between items-center border-t border-white/10 pt-6"
+              >
+                <div>
+                  <p class="text-muted text-xs">Starting from</p>
+                  <h4 class="text-2xl font-extrabold text-accent">₹35,000</h4>
+                </div>
+
+                <button
+                  class="book-button bg-accent text-dark px-5 py-3 rounded-lg font-bold hover:bg-yellow-300 transition"
+                  data-package="Maldives Holiday"
+                >
+                  Book Now
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+
+    <section id="about" class="py-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="relative reveal">
+            <img
+              src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=900"
+              alt="Travel"
+              class="rounded-3xl w-full h-[480px] object-cover border border-white/10"
+            />
+
+            <div
+              class="absolute -bottom-7 -right-5 md:right-[-25px] glass border border-white/10 rounded-2xl p-6 shadow-2xl"
+            >
+              <h3 class="text-3xl font-extrabold text-accent">10+</h3>
+
+              <p class="text-gray-300 text-sm mt-1">Years of Experience</p>
+            </div>
+          </div>
+
+          <div class="reveal">
+            <p class="text-accent font-bold text-xs tracking-[4px] mb-5">
+              ABOUT TRAVELGO
+            </p>
+
+            <h2
+              class="font-display text-4xl md:text-5xl font-bold leading-tight mb-7"
+            >
+              We Help You Explore The <span class="text-accent">World</span>
+            </h2>
+
+            <p class="text-muted leading-8 mb-5">
+              TravelGo makes it easier to discover beautiful destinations and
+              plan your dream holidays.
+            </p>
+
+            <p class="text-muted leading-8">
+              Our goal is to provide a simple and enjoyable travel booking
+              experience with exciting tour packages and memorable adventures.
+            </p>
+
+            <div class="grid grid-cols-2 gap-7 mt-10">
+              <div>
+                <h3 class="text-4xl font-extrabold text-accent">100+</h3>
+                <p class="text-gray-400 mt-2">Destinations</p>
+              </div>
+
+              <div>
+                <h3 class="text-4xl font-extrabold text-accent">500+</h3>
+                <p class="text-gray-400 mt-2">Happy Travellers</p>
+              </div>
+            </div>
+
+            <a
+              href="#booking"
+              class="inline-flex items-center gap-3 bg-accent text-dark px-7 py-4 rounded-xl font-bold mt-10 hover:bg-yellow-300 transition"
+            >
+              Plan Your Trip
+              <i data-lucide="arrow-right" class="w-5 h-5"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+
+    <section id="booking" class="py-24 bg-[#0D1524]">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="text-center mb-14 reveal">
+          <p class="text-accent font-bold text-xs tracking-[4px] mb-4">
+            START YOUR JOURNEY
+          </p>
+
+          <h2 class="font-display text-4xl md:text-5xl font-bold">
+            Book Your <span class="text-accent">Trip</span>
+          </h2>
+
+          <p class="text-muted mt-5">
+            Fill in your details to plan your next adventure.
+          </p>
+        </div>
+
+        <div
+          class="bg-surface border border-white/10 rounded-3xl p-6 md:p-12 shadow-2xl reveal"
+        >
+          <form id="bookingForm">
+            <div class="grid md:grid-cols-2 gap-7">
+              <div>
+                <label class="block text-gray-300 font-semibold mb-3"
+                  >Full Name</label
+                >
+
+                <input
+                  type="text"
+                  id="fullName"
+                  placeholder="Enter your name"
+                  required
+                  class="w-full bg-dark border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-accent transition placeholder-gray-500"
+                />
+              </div>
+
+              <div>
+                <label class="block text-gray-300 font-semibold mb-3"
+                  >Email Address</label
+                >
+
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  required
+                  class="w-full bg-dark border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-accent transition placeholder-gray-500"
+                />
+              </div>
+
+              <div>
+                <label class="block text-gray-300 font-semibold mb-3"
+                  >Phone Number</label
+                >
+
+                <input
+                  type="tel"
+                  id="phone"
+                  placeholder="10 digit phone number"
+                  pattern="[0-9]{10}"
+                  required
+                  class="w-full bg-dark border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-accent transition placeholder-gray-500"
+                />
+              </div>
+
+              <div>
+                <label class="block text-gray-300 font-semibold mb-3"
+                  >Destination</label
+                >
+
+                <select
+                  id="packageName"
+                  required
+                  class="w-full bg-dark border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-accent transition text-gray-300"
+                >
+                  <option value="">Select Package</option>
+                  <option value="Bali Adventure">Bali Adventure</option>
+                  <option value="Paris Tour">Paris Tour</option>
+                  <option value="Maldives Holiday">Maldives Holiday</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-gray-300 font-semibold mb-3"
+                  >Travel Date</label
+                >
+
+                <input
+                  type="date"
+                  id="travelDate"
+                  required
+                  class="w-full bg-dark border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-accent transition"
+                />
+              </div>
+
+              <div>
+                <label class="block text-gray-300 font-semibold mb-3"
+                  >Number of Travellers</label
+                >
+
+                <input
+                  type="number"
+                  id="travellers"
+                  min="1"
+                  max="20"
+                  value="1"
+                  required
+                  class="w-full bg-dark border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-accent transition"
+                />
+              </div>
+
+              <div class="md:col-span-2">
+                <label class="block text-gray-300 font-semibold mb-3">
+                  Additional Message
+                </label>
+
+                <textarea
+                  id="message"
+                  rows="4"
+                  placeholder="Any special requests?"
+                  class="w-full bg-dark border border-white/10 rounded-xl px-5 py-4 outline-none focus:border-accent transition placeholder-gray-500 resize-none"
+                ></textarea>
+              </div>
+
+              <div class="md:col-span-2 text-center mt-3">
+                <button
+                  type="submit"
+                  class="bg-accent text-dark px-12 py-4 rounded-xl font-extrabold text-lg hover:bg-yellow-300 hover:-translate-y-1 transition shadow-lg shadow-accent/10"
+                >
+                  Confirm Booking
+
+                  <i data-lucide="arrow-right" class="inline w-5 h-5 ml-2"></i>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+
+    <section id="contact" class="py-24">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="text-center mb-14 reveal">
+          <p class="text-accent font-bold text-xs tracking-[4px] mb-4">
+            GET IN TOUCH
+          </p>
+
+          <h2 class="font-display text-4xl md:text-5xl font-bold">
+            Contact <span class="text-accent">Us</span>
+          </h2>
+
+          <p class="text-muted mt-5">
+            Have questions about your next trip? We are here to help.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-7">
+          <div
+            class="bg-surface border border-white/10 rounded-2xl p-9 text-center hover:border-accent/50 hover:-translate-y-2 transition reveal"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-6"
+            >
+              <i data-lucide="phone" class="text-accent w-7 h-7"></i>
+            </div>
+
+            <h3 class="text-xl font-bold mb-3">Phone</h3>
+
+            <p class="text-muted">+91 98765 43210</p>
+          </div>
+
+          <div
+            class="bg-surface border border-white/10 rounded-2xl p-9 text-center hover:border-accent/50 hover:-translate-y-2 transition reveal"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-6"
+            >
+              <i data-lucide="mail" class="text-accent w-7 h-7"></i>
+            </div>
+
+            <h3 class="text-xl font-bold mb-3">Email</h3>
+
+            <p class="text-muted break-all">travelgo@example.com</p>
+          </div>
+
+          <div
+            class="bg-surface border border-white/10 rounded-2xl p-9 text-center hover:border-accent/50 hover:-translate-y-2 transition reveal"
+          >
+            <div
+              class="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mx-auto mb-6"
+            >
+              <i data-lucide="map-pin" class="text-accent w-7 h-7"></i>
+            </div>
+
+            <h3 class="text-xl font-bold mb-3">Location</h3>
+
+            <p class="text-muted">Tamil Nadu, India</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="bg-[#050912] border-t border-white/10 pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="grid md:grid-cols-2 gap-10 items-center pb-12">
+          <div>
+            <a href="#home" class="text-3xl font-extrabold text-accent">
+              TravelGo<span class="text-white">.</span>
+            </a>
+
+            <p class="text-gray-400 mt-5 max-w-md leading-7">
+              Explore More. Travel More. Live More. Let every journey become a
+              beautiful memory.
+            </p>
+          </div>
+
+          <div class="md:text-right">
+            <h3 class="text-white font-bold text-lg mb-5">Quick Links</h3>
+
+            <div
+              class="flex flex-wrap md:justify-end gap-6 text-gray-400 text-sm"
+            >
+              <a href="#home" class="hover:text-accent transition">Home</a>
+              <a href="#destinations" class="hover:text-accent transition"
+                >Destinations</a
+              >
+              <a href="#packages" class="hover:text-accent transition"
+                >Packages</a
+              >
+              <a href="#about" class="hover:text-accent transition">About</a>
+              <a href="#contact" class="hover:text-accent transition"
+                >Contact</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between gap-4 text-center md:text-left"
+        >
+          <p class="text-gray-500 text-sm">
+            © 2026 TravelGo. All Rights Reserved.
+          </p>
+
+          <p class="text-gray-500 text-sm">Designed for your next adventure.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- BOOKING CONFIRMATION MODAL -->
+
+    <div
+      id="confirmationModal"
+      class="hidden fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm flex items-center justify-center p-5"
+    >
+      <div
+        class="bg-surface border border-white/10 rounded-3xl p-8 md:p-12 max-w-md w-full text-center shadow-2xl"
+      >
+        <div
+          class="w-20 h-20 bg-green-500/10 border border-green-500/30 rounded-full flex items-center justify-center mx-auto mb-7"
+        >
+          <i data-lucide="check" class="text-green-400 w-10 h-10"></i>
+        </div>
+
+        <h2 class="font-display text-3xl font-bold">Booking Submitted!</h2>
+
+        <p id="confirmationMessage" class="text-muted mt-5 leading-7"></p>
+
+        <button
+          id="closeModal"
+          class="mt-8 bg-accent text-dark px-10 py-3 rounded-xl font-bold hover:bg-yellow-300 transition"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+
+    <script src="main.js"></script>
+
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
